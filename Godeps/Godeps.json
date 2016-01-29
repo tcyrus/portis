@@ -1,0 +1,20 @@
+{
+	"ImportPath": "github.com/tcyrus/portis",
+	"GoVersion": "go1.5.1",
+	"Deps": [
+		{
+			"ImportPath": "github.com/mattn/go-runewidth",
+			"Comment": "travisish-44-ge882a96",
+			"Rev": "e882a96ec18dd43fa283187b66af74497c9101c0"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-sqlite3",
+			"Comment": "v1.1.0-32-gf33c976",
+			"Rev": "f33c9767fbdd0d10fab2b7bf056e80bdf30c8ed1"
+		},
+		{
+			"ImportPath": "github.com/syohex/go-texttable",
+			"Rev": "d721bde1381e93b28c441be29fc18e048aad7d46"
+		}
+	]
+}
