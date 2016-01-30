@@ -2,7 +2,12 @@
 
 It often happens that we need to find the default port number for a specific service, or what service is listening on a given port.
 
-This application is based on [ncrocfer/whatportis](https://github.com/ncrocfer/whatportis), the main difference is that this version has a shorter name and is written in golang. Feel free to contribute.
+This application is based on [ncrocfer/whatportis](https://github.com/ncrocfer/whatportis).
+
+The difference with this version is:
+* It has a shorter name
+* It's written in Go
+* It's faster
 
 ## Install
 
