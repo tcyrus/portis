@@ -4,8 +4,8 @@ import (
 	"database/sql"
 	"flag"
 	"fmt"
-	_ "github.com/tcyrus/portis/Godeps/_workspace/src/github.com/mattn/go-sqlite3"
-	"github.com/tcyrus/portis/Godeps/_workspace/src/github.com/syohex/go-texttable"
+	_ "github.com/mattn/go-sqlite3"
+	"github.com/syohex/go-texttable"
 	"path"
 	"runtime"
 	"strconv"
@@ -35,14 +35,11 @@ func getPorts(port string, like bool) {
 		WHERE_FIELD = "port"
 	}
 
-	WHERE_VALUE := "='%s'"
 	if like {
-		WHERE_VALUE = " LIKE '%%%s%%'"
+		port = fmt.Sprintf("%%%s%%", port)
 	}
 
-	sql := BASE_SQL + WHERE_FIELD + fmt.Sprintf(WHERE_VALUE, port)
-
-	rows, _ := db.Query(sql)
+	rows, _ := db.Query(BASE_SQL + WHERE_FIELD + " LIKE ?", port)
 	defer rows.Close()
 
 	makeTable(rows)
@@ -64,14 +61,13 @@ func makeTable(rows *sql.Rows) {
 }
 
 func main() {
-	var like bool
-	flag.BoolVar(&like, "like", false, "search ports containing the pattern")
+	like := flag.Bool("like", false, "search ports containing the pattern")
 
 	flag.Parse()
 
 	port := flag.Arg(0)
 
 	if port != "" {
-		getPorts(port, like)
+		getPorts(port, *like)
 	}
 }
