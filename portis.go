@@ -13,7 +13,8 @@ import (
 
 const BASE_SQL = "SELECT name, port, protocol, description FROM ports WHERE "
 
-// This function checks if the string can be cast into an integer
+// This function checks if the string can be cast into an integer;
+// if a string can be cast into an integer, then it is a valid port.
 func validPort(v string) bool {
 	_, err := strconv.Atoi(v)
 	return (err == nil)
@@ -29,17 +30,17 @@ func getPorts(port string, like bool) {
 	db, _ := sql.Open("sqlite3", filename)
 	defer db.Close()
 
-	var where_field string = "name"
+	WHERE_FIELD := "name"
 	if validPort(port) {
-		where_field = "port"
+		WHERE_FIELD = "port"
 	}
 
-	var where_value string = "='%s'"
+	WHERE_VALUE := "='%s'"
 	if like {
-		where_value = " LIKE '%%%s%%'"
+		WHERE_VALUE = " LIKE '%%%s%%'"
 	}
 
-	var sql string = BASE_SQL + where_field + fmt.Sprintf(where_value, port)
+	sql := BASE_SQL + WHERE_FIELD + fmt.Sprintf(WHERE_VALUE, port)
 
 	rows, _ := db.Query(sql)
 	defer rows.Close()
@@ -52,8 +53,9 @@ func makeTable(rows *sql.Rows) {
 	tbl := &texttable.TextTable{}
 	tbl.SetHeader("Name", "Port", "Protocol", "Description")
 
+	var name, port, protocol, description string
+
 	for rows.Next() {
-		var name, port, protocol, description string
 		rows.Scan(&name, &port, &protocol, &description)
 		tbl.AddRow(name, port, protocol, description)
 	}
@@ -63,11 +65,13 @@ func makeTable(rows *sql.Rows) {
 
 func main() {
 	var like bool
-
 	flag.BoolVar(&like, "like", false, "search ports containing the pattern")
+
 	flag.Parse()
 
-	if len(flag.Args()) > 0 {
-		getPorts(flag.Args()[0], like)
+	port := flag.Arg(0)
+
+	if port != "" {
+		getPorts(port, like)
 	}
 }

@@ -1,12 +1,16 @@
-`portis` - a command to search port names and numbers
-======================================================
+# `portis` - a command to search port names and numbers
 
 It often happens that we need to find the default port number for a specific service, or what service is listening on a given port.
 
 This application is based on [ncrocfer/whatportis](https://github.com/ncrocfer/whatportis), the main difference is that this version has a shorter name and is written in golang. Feel free to contribute.
 
-Usage
------
+## Install
+
+```
+$ go get github.com/tcyrus/portis
+```
+
+## Usage
 
 This tool allows you to find what port is associated with a service:
 
@@ -32,8 +36,7 @@ $ portis 5432
 ```
 
 
-Notes
------
+## Notes
 
 - You can search a pattern without knowing the exact name by adding the `--like` option:
 
