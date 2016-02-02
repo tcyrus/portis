@@ -8,6 +8,7 @@ The difference with this version is:
 * It has a shorter name
 * It's written in Go
 * It's faster
+* You can update the database
 
 ## Install
 
@@ -64,6 +65,17 @@ $ portis --like mysql
 +----------------+-------+----------+-----------------------------------+
 ```
 
+- If you have no parameters, the database will update:
+
+```
+$ portis
+Downloaded CSV
+Parsed CSV
+Deleted Table
+Added Table Schema
+Database Update Complete
+```
+
 - Why not use `grep <port> /etc/services`? Simply because I want a portable command that display the output in a nice format (a pretty table).
 
-- The tool uses the [iana.org](http://www.iana.org/assignments/port-numbers) website to get the official list of ports. A private script has been created to fetch regularly the website and update the **ports.db** file. For this reason, an `update` command will be created in a future version.
+- The tool uses the [iana.org](http://www.iana.org/assignments/port-numbers) website to get the official list of ports.
